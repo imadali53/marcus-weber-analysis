@@ -9,7 +9,7 @@ st.set_page_config(page_title="Marcus Weber Electronics - Business Intelligence"
 # Load data
 @st.cache_data
 def load_data():
-    df = pd.read_excel("Online_Retail.xlsx")
+    df = pd.read_excel("OnlineRetail.csv")
     df = df.dropna(subset=['CustomerID'])
     df = df[df['Quantity'] > 0]
     df = df[df['UnitPrice'] > 0]
@@ -48,8 +48,8 @@ prof = df.groupby('Category').agg({
 }).reset_index()
 prof['Margin_%'] = (prof['Profit'] / prof['Revenue'] * 100).round(2)
 
-fig1 = px.bar(prof.sort_values('Profit', ascending=False), 
-              x='Category', y='Profit', 
+fig1 = px.bar(prof.sort_values('Profit', ascending=False),
+              x='Category', y='Profit',
               title='Profit by Category',
               color='Margin_%',
               color_continuous_scale='RdYlGn')
